@@ -6,7 +6,7 @@ import time
 import send2trash
 import sqlite3
 
-
+r'C:\Users\akush\Desktop\Programming\Personal Projects\Safe_sql'
 
 def on_any_event(event):
     conn1 = sqlite3.connect(r'C:\Users\akush\Desktop\Programming\Personal Projects\Safe_sql\safe.sqlite')

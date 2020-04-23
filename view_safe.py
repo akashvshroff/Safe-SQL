@@ -2,24 +2,26 @@ import sqlite3
 import os
 import sys
 
+r'C:\Users\akush\Desktop\Programming\Personal Projects\Safe_sql'
+
 def access():
     print("-"*15)
-    print("Files in the safe")
+    print("Files in the safe \n")
     cur.execute('SELECT name, ext FROM Files')
     rows = cur.fetchall()
+    fdict = {fdict: [] for fdict in range(1, len(rows))}
+    i = 1
     for row in rows:
         f = row[0] + row[1]
-        print(f)
+        print(str(i),'. ',f)
+        fdict[i] = f
     print("-"*15)
-    print("Enter name of file to access, enter z to return to main menu")
-    n = input()
-    if n == 'z':
+    print("Enter the number of the file you want to access. Enter x to return to menu.")
+    a = input()
+    if a == 'x':
         return
-    print("Enter extension of file to access, include the ., enter z to return to main menu")
-    e = input()
-    if e == 'z':
-        return
-    filename = n+e
+    filename = fdict[int(a)]
+    n,e = os.path.splitext(filename)
     cur.execute('SELECT file FROM Files WHERE name = ? and ext = ?',(n,e,))
     try:
         data = cur.fetchone()[0]
@@ -36,20 +38,19 @@ def delete():
     print("Files in the safe")
     cur.execute('SELECT name, ext FROM Files')
     rows = cur.fetchall()
-
+    fdict = {fdict: [] for fdict in range(1, len(rows))}
+    i = 1
     for row in rows:
         f = row[0] + row[1]
-        print(f)
-
+        print(str(i),'. ',f)
+        fdict[i] = f
     print("-"*15)
-    print("Enter name of file to delete, enter z to the main menu")
-    n = input()
-    if n == 'z':
+    print("Enter the number of the file you want to delete. Enter x to return to menu.")
+    a = input()
+    if a == 'x':
         return
-    print("Enter extension of file to delete, include the ., enter z to the main menu")
-    e = input()
-    if e == 'z':
-        return
+    filename = fdict[int(a)]
+    n,e = os.path.splitext(filename)
     try:
         cur.execute('DELETE FROM Files WHERE name = ? and ext = ?',(n,e,))
         print("File deleted.")
