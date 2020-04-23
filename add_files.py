@@ -12,8 +12,11 @@ def on_any_event(event):
     conn1 = sqlite3.connect(r'C:\Users\akush\Desktop\Programming\Personal Projects\Safe_sql\safe.sqlite')
     cur = conn1.cursor()
     for filename in os.listdir(path):
+        filename.strip()
         abs = os.path.join(path, filename)
         name,ext = os.path.splitext(filename)
+        name = name.strip()
+        ext = ext.strip()
         with open(abs, 'rb') as fhand:
             binary_data = fhand.read()
         file = binary_data
@@ -25,8 +28,7 @@ def on_any_event(event):
 conn = sqlite3.connect(r'C:\Users\akush\Desktop\Programming\Personal Projects\Safe_sql\safe.sqlite')
 
 cur1 = conn.cursor()
-cur1.executescript('''Create table if not exists Files (id INTEGER NOT NULL
-PRIMARY KEY AUTOINCREMENT UNIQUE, name TEXT, ext TEXT, file BLOB NOT NULL)''')
+cur1.executescript('''Create table if not exists Files (name TEXT, ext TEXT, file BLOB NOT NULL UNIQUE)''')
 cur1.close()
 
 patterns = "*"
