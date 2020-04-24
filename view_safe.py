@@ -15,6 +15,7 @@ def access():
         f = row[0] + row[1]
         print(str(i),'. ',f)
         fdict[i] = f
+        i+= 1
     print("-"*15)
     print("Enter the number of the file you want to access. Enter x to return to menu.")
     a = input()
@@ -44,6 +45,7 @@ def delete():
         f = row[0] + row[1]
         print(str(i),'. ',f)
         fdict[i] = f
+        i+=1
     print("-"*15)
     print("Enter the number of the file you want to delete. Enter x to return to menu.")
     a = input()
