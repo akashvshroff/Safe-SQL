@@ -2,7 +2,37 @@ import sqlite3
 import os
 import sys
 
-r'C:\Users\akush\Desktop\Programming\Personal Projects\Safe_sql'
+def main():
+    print("Welcome to the safe! Please enter your password")
+    password = "Barrys2e5!" #Password
+    while True:
+        p = input()
+        if p == password:
+            break
+        else:
+            print("Incorrect, please re-enter")
+            continue
+
+    print("-"*15)
+    while True:
+        print("Commands:")
+        print("a - Access the safe")
+        print("d - Delete a file")
+        print("q - Quit program")
+
+        print("Enter your command exactly!")
+        cm = input()
+
+        if cm == 'a':
+            access()
+        elif cm == 'd':
+            delete()
+
+        elif cm == 'q':
+            quit()
+        else:
+            print("Please re-enter!")
+            continue
 
 def access():
     print("-"*15)
@@ -65,35 +95,6 @@ def quit():
     sys.exit()
 
 if __name__ == '__main__':
-    conn = sqlite3.connect(r'C:\Users\akush\Desktop\Programming\Personal Projects\Safe_sql\safe.sqlite')
-    cur = conn.cursor()
-    print("Welcome to the safe! Please enter your password")
-    password = "Barrys2e5!"
-    while True:
-        p = input()
-        if p == password:
-            break
-        else:
-            print("Incorrect, please re-enter")
-            continue
-
-    print("-"*15)
-    while True:
-        print("Commands:")
-        print("a - Access the safe")
-        print("d - Delete a file")
-        print("q - Quit program")
-
-        print("Enter your command exactly!")
-        cm = input()
-
-        if cm == 'a':
-            access()
-        elif cm == 'd':
-            delete()
-
-        elif cm == 'q':
-            quit()
-        else:
-            print("Please re-enter!")
-            continue
+    conn = sqlite3.connect(r'C:\Users\akush\Desktop\Programming\Projects\Safe_sql\safe.sqlite') #Filename for your safe
+    cur = conn.cursor() #create a cursor connection, use OOP to facilitate the connection in the main function
+    main()

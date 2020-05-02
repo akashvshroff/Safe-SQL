@@ -6,8 +6,6 @@ import time
 import send2trash
 import sqlite3
 
-r'C:\Users\akush\Desktop\Programming\Personal Projects\Safe_sql'
-
 def on_any_event(event):
     conn1 = sqlite3.connect(r'C:\Users\akush\Desktop\Programming\Personal Projects\Safe_sql\safe.sqlite')
     cur = conn1.cursor()
@@ -24,30 +22,30 @@ def on_any_event(event):
         send2trash.send2trash(abs)
     conn1.commit()
 
+if __name__=='__main__':
+    conn = sqlite3.connect(r'C:\Users\akush\Desktop\Programming\Personal Projects\Safe_sql\safe.sqlite') 
 
-conn = sqlite3.connect(r'C:\Users\akush\Desktop\Programming\Personal Projects\Safe_sql\safe.sqlite')
+    cur1 = conn.cursor()
+    cur1.executescript('''Create table if not exists Files (name TEXT, ext TEXT, file BLOB NOT NULL UNIQUE)''')
+    cur1.close()
 
-cur1 = conn.cursor()
-cur1.executescript('''Create table if not exists Files (name TEXT, ext TEXT, file BLOB NOT NULL UNIQUE)''')
-cur1.close()
+    patterns = "*"
+    ignore_patterns = ""
+    case_sensitive = False
+    ignore_directories = False
+    my_event_handler = PatternMatchingEventHandler(patterns, ignore_patterns, ignore_directories, case_sensitive)
 
-patterns = "*"
-ignore_patterns = ""
-case_sensitive = False
-ignore_directories = False
-my_event_handler = PatternMatchingEventHandler(patterns, ignore_patterns, ignore_directories, case_sensitive)
+    my_event_handler.on_any_event = on_any_event
 
-my_event_handler.on_any_event = on_any_event
+    path = r"C:\Users\akush\Desktop\Safe" #Folder to observe
+    go_recursively = True
+    my_observer = Observer() #create an object
+    my_observer.schedule(my_event_handler, path, recursive = go_recursively)
 
-path = r"C:\Users\akush\Desktop\Safe"
-go_recursively = True
-my_observer = Observer()
-my_observer.schedule(my_event_handler, path, recursive = go_recursively)
-
-my_observer.start()
-try:
-    while True:
-        time.sleep(1)
-except KeyboardInterrupt:
-    my_observer.stop()
-    my_observer.join()
+    my_observer.start()
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        my_observer.stop()
+        my_observer.join()
