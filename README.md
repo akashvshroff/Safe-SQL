@@ -12,3 +12,4 @@
 # Notes
   * If you use this program, please ensure that you set the filepaths as per your requirements.
   * Since SQLite is used, there are certain concurrency issues and you cannot view the safe being updated real time as it causes the database to lock and an exception. Therefore, if you are viewing any files and access or delete them, close the view_safe program before re-adding the files to the 'Safe' folder.
+  * I have since deleted the .exe file as I had updated the code and fixed certain bugs. I have not enclosed the file in this repository having changed the various file paths in order to maintain some privacy. An .exe file can easily be created by using ```pyinstaller add_files.py --onefile -w```
